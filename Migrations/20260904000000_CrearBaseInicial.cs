@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Pomelo.EntityFrameworkCore.MySql.Metadata;
 using SistemaAlquilerAutos.Datos;
 
 #nullable disable

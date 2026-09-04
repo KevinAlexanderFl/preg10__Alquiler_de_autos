@@ -1,5 +1,10 @@
 @model Contrato
-@{ ViewData["Title"] = "Detalle del contrato"; }
+@{
+    ViewData["Title"] = "Detalle del contrato";
+    var porcentajePagado = Model.Total == 0
+        ? 0
+        : Math.Min(100, Model.TotalPagado / Model.Total * 100);
+}
 <section class="encabezado-pagina"><div><a class="volver" asp-action="Index">← Volver a contratos</a><h1>Contrato #@Model.Id.ToString("0000")</h1><p>Resumen financiero y condiciones del alquiler.</p></div><span class="etiqueta grande @Model.Estado.ToString().ToLowerInvariant()">@Model.Estado</span></section>
 <section class="cuadricula-detalle">
     <article class="tarjeta detalle-tarjeta">
@@ -23,7 +28,7 @@
     <aside class="tarjeta resumen-financiero">
         <span class="sobrelinea">RESUMEN FINANCIERO</span><div><small>TOTAL DEL CONTRATO</small><strong>$@Model.Total.ToString("N2")</strong></div>
         <dl><dt>Pagado</dt><dd class="positivo">$@Model.TotalPagado.ToString("N2")</dd><dt>Saldo pendiente</dt><dd>$@Model.SaldoPendiente.ToString("N2")</dd></dl>
-        <div class="progreso"><span style="width:@(Model.Total == 0 ? 0 : Math.Min(100, Model.TotalPagado / Model.Total * 100).ToString(System.Globalization.CultureInfo.InvariantCulture))%"></span></div>
+        <div class="progreso"><span style="width:@porcentajePagado.ToString(System.Globalization.CultureInfo.InvariantCulture)%"></span></div>
         <a class="boton primario ancho" asp-controller="Pagos" asp-action="Crear" asp-route-contratoId="@Model.Id">＋ Registrar pago</a>
         <a class="boton secundario ancho" asp-controller="Pagos" asp-action="Index" asp-route-contratoId="@Model.Id">Ver historial de pagos</a>
     </aside>
