@@ -38,7 +38,6 @@ Servicios/         Lógica de contratos y pagos
 ViewModels/        Modelos específicos para panel y reportes
 Views/             Pantallas Razor en español
 wwwroot/            Diseño CSS y comportamiento JavaScript
-BaseDatos/         Script para crear la base MySQL
 Program.cs         Configuración principal y dependencias
 ```
 
