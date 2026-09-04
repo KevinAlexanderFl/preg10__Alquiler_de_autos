@@ -1,0 +1,8 @@
+@model Vehiculo
+@{ ViewData["Title"] = "Detalle del vehículo"; }
+<section class="encabezado-pagina"><div><a class="volver" asp-action="Index">← Volver a vehículos</a><h1>@Model.Marca @Model.Modelo</h1><p>Ficha y disponibilidad del automóvil.</p></div><a class="boton primario" asp-action="Editar" asp-route-id="@Model.Id">✎ Editar</a></section>
+<section class="tarjeta detalle-tarjeta">
+    <div class="perfil vehiculo-perfil"><span>◆</span><div><h2>@Model.Marca @Model.Modelo</h2><p><span class="placa">@Model.Placa</span></p><span class="etiqueta @Model.Estado.ToString().ToLowerInvariant()">@Model.Estado</span></div></div>
+    <div class="detalle-cuadricula"><div><small>AÑO</small><strong>@Model.Anio</strong></div><div><small>COLOR</small><strong>@Model.Color</strong></div><div><small>TARIFA DIARIA</small><strong>$@Model.PrecioDiario.ToString("N2")</strong></div><div><small>REGISTRO</small><strong>@(Model.Activo ? "Activo" : "Inactivo")</strong></div></div>
+    <div class="formulario-acciones"><a class="boton primario" asp-controller="Contratos" asp-action="Crear" asp-route-vehiculoId="@Model.Id">Crear contrato con este vehículo</a></div>
+</section>

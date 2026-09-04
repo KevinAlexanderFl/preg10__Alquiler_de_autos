@@ -1,0 +1,14 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+<section class="estado-vacio tarjeta">
+    <span class="estado-icono error-icono">!</span>
+    <h1>Ocurrió un problema</h1>
+    <p>No fue posible completar la solicitud. Intente nuevamente.</p>
+    @if (Model.MostrarRequestId)
+    {
+        <small>Código de seguimiento: @Model.RequestId</small>
+    }
+    <a class="boton primario" asp-controller="Inicio" asp-action="Index">Volver al inicio</a>
+</section>

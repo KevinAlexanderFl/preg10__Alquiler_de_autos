@@ -1,0 +1,71 @@
+@model PanelViewModel
+@{
+    ViewData["Title"] = "Panel principal";
+}
+<section class="encabezado-pagina">
+    <div>
+        <span class="sobrelinea">RESUMEN GENERAL</span>
+        <h1>Buenos días, Administrador</h1>
+        <p>Controle la operación diaria de su flota desde un solo lugar.</p>
+    </div>
+    <a class="boton primario" asp-controller="Contratos" asp-action="Crear"><span>＋</span> Nuevo contrato</a>
+</section>
+
+<section class="cuadricula-indicadores">
+    <article class="indicador azul">
+        <div><small>CLIENTES ACTIVOS</small><strong>@Model.TotalClientes</strong><a asp-controller="Clientes" asp-action="Index">Ver clientes →</a></div>
+        <span class="indicador-icono">♙</span>
+    </article>
+    <article class="indicador verde">
+        <div><small>AUTOS DISPONIBLES</small><strong>@Model.VehiculosDisponibles</strong><a asp-controller="Vehiculos" asp-action="Index">Ver flota →</a></div>
+        <span class="indicador-icono">◆</span>
+    </article>
+    <article class="indicador naranja">
+        <div><small>CONTRATOS ACTIVOS</small><strong>@Model.ContratosActivos</strong><a asp-controller="Contratos" asp-action="Index">Administrar →</a></div>
+        <span class="indicador-icono">▤</span>
+    </article>
+    <article class="indicador violeta">
+        <div><small>INGRESOS DEL MES</small><strong>$@Model.IngresosMes.ToString("N2")</strong><a asp-controller="Pagos" asp-action="Index">Ver pagos →</a></div>
+        <span class="indicador-icono">$</span>
+    </article>
+</section>
+
+<section class="cuadricula-panel">
+    <article class="tarjeta panel-tabla">
+        <div class="tarjeta-cabecera">
+            <div><h2>Contratos recientes</h2><p>Últimos movimientos registrados</p></div>
+            <a asp-controller="Contratos" asp-action="Index">Ver todos</a>
+        </div>
+        @if (Model.ContratosRecientes.Any())
+        {
+            <div class="tabla-contenedor">
+                <table>
+                    <thead><tr><th>Contrato</th><th>Cliente</th><th>Vehículo</th><th>Total</th><th>Estado</th></tr></thead>
+                    <tbody>
+                    @foreach (var item in Model.ContratosRecientes)
+                    {
+                        <tr>
+                            <td><a asp-controller="Contratos" asp-action="Detalles" asp-route-id="@item.Id">#@item.Id.ToString("0000")</a></td>
+                            <td>@item.Cliente?.NombreCompleto</td>
+                            <td><strong>@item.Vehiculo?.Marca @item.Vehiculo?.Modelo</strong><small>@item.Vehiculo?.Placa</small></td>
+                            <td>$@item.Total.ToString("N2")</td>
+                            <td><span class="etiqueta @item.Estado.ToString().ToLowerInvariant()">@item.Estado</span></td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="estado-vacio compacto"><span>▤</span><p>Aún no existen contratos.</p></div>
+        }
+    </article>
+    <aside class="tarjeta acciones-rapidas">
+        <div class="tarjeta-cabecera"><div><h2>Acciones rápidas</h2><p>Atajos frecuentes</p></div></div>
+        <a asp-controller="Clientes" asp-action="Crear"><span class="azul">♙</span><div><strong>Registrar cliente</strong><small>Agregar una persona nueva</small></div><b>›</b></a>
+        <a asp-controller="Vehiculos" asp-action="Crear"><span class="verde">◆</span><div><strong>Agregar vehículo</strong><small>Ampliar la flota disponible</small></div><b>›</b></a>
+        <a asp-controller="Pagos" asp-action="Crear"><span class="violeta">$</span><div><strong>Registrar pago</strong><small>Abonar a un contrato</small></div><b>›</b></a>
+        <a asp-controller="Reportes" asp-action="ContratosPorCliente"><span class="naranja">▥</span><div><strong>Generar reporte</strong><small>Contratos por cliente</small></div><b>›</b></a>
+    </aside>
+</section>

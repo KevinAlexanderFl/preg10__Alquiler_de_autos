@@ -1,0 +1,3 @@
+@model Contrato
+@{ ViewData["Title"] = "Eliminar contrato"; }
+<section class="confirmacion tarjeta"><span class="confirmacion-icono">!</span><span class="sobrelinea">CONFIRMACIÓN</span><h1>¿Eliminar el contrato #@Model.Id.ToString("0000")?</h1><p>Cliente: <strong>@Model.Cliente?.NombreCompleto</strong><br />Vehículo: @Model.Vehiculo?.Descripcion</p><div class="aviso">No será posible eliminarlo si ya tiene pagos registrados.</div><form asp-action="Eliminar" asp-route-id="@Model.Id" method="post"><a class="boton secundario" asp-action="Index">Cancelar</a><button class="boton peligro-boton" type="submit">Sí, eliminar</button></form></section>

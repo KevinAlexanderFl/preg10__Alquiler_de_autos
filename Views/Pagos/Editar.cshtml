@@ -1,0 +1,5 @@
+@model Pago
+@{ ViewData["Title"] = "Editar pago"; }
+<section class="encabezado-pagina"><div><a class="volver" asp-action="Index">← Volver a pagos</a><h1>Editar pago #P-@Model.Id.ToString("0000")</h1><p>Actualice los datos del movimiento.</p></div></section>
+<form asp-action="Editar" asp-route-id="@Model.Id" class="tarjeta formulario-tarjeta" method="post"><input type="hidden" asp-for="Id" /><div class="seccion-titulo"><span>✎</span><div><h2>Información del pago</h2><p>Verifique el monto y el método seleccionado.</p></div></div><partial name="_Formulario" model="Model" /><div class="formulario-acciones"><a class="boton secundario" asp-action="Index">Cancelar</a><button class="boton primario" type="submit">Guardar cambios</button></div></form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /><script src="~/js/pagos.js" asp-append-version="true"></script> }

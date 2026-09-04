@@ -1,0 +1,34 @@
+@model Contrato
+@{ ViewData["Title"] = "Detalle del contrato"; }
+<section class="encabezado-pagina"><div><a class="volver" asp-action="Index">← Volver a contratos</a><h1>Contrato #@Model.Id.ToString("0000")</h1><p>Resumen financiero y condiciones del alquiler.</p></div><span class="etiqueta grande @Model.Estado.ToString().ToLowerInvariant()">@Model.Estado</span></section>
+<section class="cuadricula-detalle">
+    <article class="tarjeta detalle-tarjeta">
+        <div class="seccion-titulo"><span>▤</span><div><h2>Información general</h2><p>Datos asociados al contrato</p></div></div>
+        <div class="detalle-cuadricula">
+            <div><small>CLIENTE</small><strong>@Model.Cliente?.NombreCompleto</strong><span>@Model.Cliente?.Cedula</span></div>
+            <div><small>VEHÍCULO</small><strong>@Model.Vehiculo?.Marca @Model.Vehiculo?.Modelo</strong><span>@Model.Vehiculo?.Placa</span></div>
+            <div><small>FECHA DE INICIO</small><strong>@Model.FechaInicio.ToString("dd/MM/yyyy")</strong></div>
+            <div><small>FECHA DE DEVOLUCIÓN</small><strong>@Model.FechaFin.ToString("dd/MM/yyyy")</strong></div>
+            <div><small>TARIFA DIARIA</small><strong>$@Model.TarifaDiaria.ToString("N2")</strong></div>
+            <div><small>OBSERVACIONES</small><strong>@(Model.Observaciones ?? "Sin observaciones")</strong></div>
+        </div>
+        @if (Model.Estado is EstadoContrato.Activo or EstadoContrato.Reservado)
+        {
+            <div class="formulario-acciones izquierda"><a class="boton secundario" asp-action="Editar" asp-route-id="@Model.Id">✎ Editar</a>
+                <form asp-action="Cancelar" asp-route-id="@Model.Id" method="post"><button class="boton texto-peligro" type="submit" data-confirmar="¿Cancelar este contrato?">Cancelar contrato</button></form>
+                <form asp-action="Finalizar" asp-route-id="@Model.Id" method="post"><button class="boton primario" type="submit">Finalizar contrato</button></form>
+            </div>
+        }
+    </article>
+    <aside class="tarjeta resumen-financiero">
+        <span class="sobrelinea">RESUMEN FINANCIERO</span><div><small>TOTAL DEL CONTRATO</small><strong>$@Model.Total.ToString("N2")</strong></div>
+        <dl><dt>Pagado</dt><dd class="positivo">$@Model.TotalPagado.ToString("N2")</dd><dt>Saldo pendiente</dt><dd>$@Model.SaldoPendiente.ToString("N2")</dd></dl>
+        <div class="progreso"><span style="width:@(Model.Total == 0 ? 0 : Math.Min(100, Model.TotalPagado / Model.Total * 100).ToString(System.Globalization.CultureInfo.InvariantCulture))%"></span></div>
+        <a class="boton primario ancho" asp-controller="Pagos" asp-action="Crear" asp-route-contratoId="@Model.Id">＋ Registrar pago</a>
+        <a class="boton secundario ancho" asp-controller="Pagos" asp-action="Index" asp-route-contratoId="@Model.Id">Ver historial de pagos</a>
+    </aside>
+</section>
+@if (Model.Pagos.Any())
+{
+    <section class="tarjeta margen-superior"><div class="tarjeta-cabecera"><div><h2>Pagos del contrato</h2><p>Movimientos registrados</p></div></div><div class="tabla-contenedor"><table><thead><tr><th>Fecha</th><th>Método</th><th>Referencia</th><th>Monto</th><th>Estado</th></tr></thead><tbody>@foreach (var pago in Model.Pagos.OrderByDescending(x => x.FechaPago)){<tr><td>@pago.FechaPago.ToString("dd/MM/yyyy")</td><td>@pago.Metodo</td><td>@(pago.NumeroReferencia ?? "—")</td><td><strong>$@pago.Monto.ToString("N2")</strong></td><td><span class="etiqueta @pago.Estado.ToString().ToLowerInvariant()">@pago.Estado</span></td></tr>}</tbody></table></div></section>
+}

@@ -1,0 +1,11 @@
+@model Cliente
+<div asp-validation-summary="ModelOnly" class="validacion-resumen"></div>
+<div class="formulario-cuadricula">
+    <div class="campo"><label asp-for="Cedula"></label><input asp-for="Cedula" placeholder="Ej. 1723456789" /><span asp-validation-for="Cedula"></span></div>
+    <div class="campo"><label asp-for="Telefono"></label><input asp-for="Telefono" placeholder="Ej. 0991234567" /><span asp-validation-for="Telefono"></span></div>
+    <div class="campo"><label asp-for="Nombres"></label><input asp-for="Nombres" placeholder="Nombres del cliente" /><span asp-validation-for="Nombres"></span></div>
+    <div class="campo"><label asp-for="Apellidos"></label><input asp-for="Apellidos" placeholder="Apellidos del cliente" /><span asp-validation-for="Apellidos"></span></div>
+    <div class="campo ancho-completo"><label asp-for="Correo"></label><input asp-for="Correo" placeholder="nombre@correo.com" /><span asp-validation-for="Correo"></span></div>
+    <div class="campo ancho-completo"><label asp-for="Direccion"></label><textarea asp-for="Direccion" rows="3" placeholder="Dirección domiciliaria"></textarea><span asp-validation-for="Direccion"></span></div>
+    <label class="interruptor ancho-completo"><input asp-for="Activo" /><span></span><div><strong>Cliente activo</strong><small>Puede seleccionarse al crear contratos.</small></div></label>
+</div>

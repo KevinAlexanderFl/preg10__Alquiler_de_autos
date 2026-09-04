@@ -1,0 +1,8 @@
+@model Cliente
+@{ ViewData["Title"] = "Eliminar cliente"; }
+<section class="confirmacion tarjeta">
+    <span class="confirmacion-icono">!</span><span class="sobrelinea">CONFIRMACIÓN</span><h1>¿Eliminar este cliente?</h1>
+    <p>Se eliminará permanentemente a <strong>@Model.NombreCompleto</strong>, con cédula @Model.Cedula.</p>
+    <div class="aviso">Esta acción solo será permitida si el cliente no tiene contratos relacionados.</div>
+    <form asp-action="Eliminar" asp-route-id="@Model.Id" method="post"><a class="boton secundario" asp-action="Index">Cancelar</a><button class="boton peligro-boton" type="submit">Sí, eliminar</button></form>
+</section>

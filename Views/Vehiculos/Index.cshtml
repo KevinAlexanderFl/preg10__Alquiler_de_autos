@@ -1,0 +1,32 @@
+@model IEnumerable<Vehiculo>
+@{
+    ViewData["Title"] = "Vehículos";
+}
+<section class="encabezado-pagina">
+    <div><span class="sobrelinea">FLOTA</span><h1>Vehículos</h1><p>Disponibilidad, tarifas y estado de cada automóvil.</p></div>
+    <a class="boton primario" asp-action="Crear">＋ Nuevo vehículo</a>
+</section>
+<section class="tarjeta">
+    <form method="get" class="barra-filtros">
+        <label class="buscador"><span>⌕</span><input name="buscar" value="@ViewBag.Buscar" placeholder="Buscar por placa, marca o modelo..." /></label>
+        <select name="estado" asp-items="Html.GetEnumSelectList<EstadoVehiculo>()"><option value="">Todos los estados</option></select>
+        <button class="boton secundario" type="submit">Filtrar</button><a class="boton texto" asp-action="Index">Limpiar</a>
+    </form>
+    <div class="tabla-contenedor">
+        <table>
+            <thead><tr><th>Vehículo</th><th>Placa</th><th>Año / Color</th><th>Tarifa diaria</th><th>Estado</th><th class="acciones-columna">Acciones</th></tr></thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><div class="vehiculo"><span>◆</span><div><strong>@item.Marca @item.Modelo</strong><small>@(item.Activo ? "Habilitado" : "Inactivo")</small></div></div></td>
+                    <td><span class="placa">@item.Placa</span></td><td><strong>@item.Anio</strong><small>@item.Color</small></td>
+                    <td><strong>$@item.PrecioDiario.ToString("N2")</strong></td><td><span class="etiqueta @item.Estado.ToString().ToLowerInvariant()">@item.Estado</span></td>
+                    <td class="acciones"><a title="Ver" asp-action="Detalles" asp-route-id="@item.Id">⌕</a><a title="Editar" asp-action="Editar" asp-route-id="@item.Id">✎</a><a class="peligro" title="Eliminar" asp-action="Eliminar" asp-route-id="@item.Id">♲</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    @if (!Model.Any()) { <div class="estado-vacio compacto"><span>◆</span><p>No se encontraron vehículos.</p></div> }
+</section>

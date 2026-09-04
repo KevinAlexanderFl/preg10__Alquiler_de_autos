@@ -1,0 +1,11 @@
+@model Cliente
+@{ ViewData["Title"] = "Detalle del cliente"; }
+<section class="encabezado-pagina"><div><a class="volver" asp-action="Index">← Volver a clientes</a><h1>@Model.NombreCompleto</h1><p>Ficha completa del cliente.</p></div><a class="boton primario" asp-action="Editar" asp-route-id="@Model.Id">✎ Editar</a></section>
+<section class="tarjeta detalle-tarjeta">
+    <div class="perfil"><span>@Model.Nombres.FirstOrDefault()@Model.Apellidos.FirstOrDefault()</span><div><h2>@Model.NombreCompleto</h2><p>@Model.Correo</p><span class="etiqueta @(Model.Activo ? "disponible" : "cancelado")">@(Model.Activo ? "Activo" : "Inactivo")</span></div></div>
+    <div class="detalle-cuadricula">
+        <div><small>CÉDULA</small><strong>@Model.Cedula</strong></div><div><small>TELÉFONO</small><strong>@Model.Telefono</strong></div>
+        <div><small>CORREO ELECTRÓNICO</small><strong>@Model.Correo</strong></div><div><small>DIRECCIÓN</small><strong>@(Model.Direccion ?? "No registrada")</strong></div>
+    </div>
+    <div class="formulario-acciones"><a class="boton secundario" asp-controller="Reportes" asp-action="ContratosPorCliente" asp-route-clienteId="@Model.Id">Ver contratos</a><a class="boton primario" asp-controller="Contratos" asp-action="Crear">Crear contrato</a></div>
+</section>

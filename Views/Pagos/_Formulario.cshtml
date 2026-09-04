@@ -1,0 +1,10 @@
+@model Pago
+<div asp-validation-summary="ModelOnly" class="validacion-resumen"></div>
+<div class="formulario-cuadricula">
+    <div class="campo ancho-completo"><label asp-for="ContratoId"></label><select asp-for="ContratoId" asp-items="ViewBag.ContratoId"><option value="">Seleccione un contrato pendiente</option></select><span asp-validation-for="ContratoId"></span></div>
+    <div class="campo"><label asp-for="FechaPago"></label><input asp-for="FechaPago" asp-format="{0:yyyy-MM-dd}" type="date" /><span asp-validation-for="FechaPago"></span></div>
+    <div class="campo"><label asp-for="Monto"></label><div class="entrada-prefijo"><span>$</span><input asp-for="Monto" type="number" min="0.01" step="0.01" /></div><span asp-validation-for="Monto"></span></div>
+    <div class="campo"><label asp-for="Metodo"></label><select asp-for="Metodo" asp-items="Html.GetEnumSelectList<MetodoPago>()" id="metodoPago"></select><span asp-validation-for="Metodo"></span></div>
+    <div class="campo"><label asp-for="Estado"></label><select asp-for="Estado" asp-items="Html.GetEnumSelectList<EstadoPago>()"></select><span asp-validation-for="Estado"></span></div>
+    <div class="campo ancho-completo" id="campoReferencia"><label asp-for="NumeroReferencia"></label><input asp-for="NumeroReferencia" placeholder="Código de autorización o transferencia" /><span asp-validation-for="NumeroReferencia"></span><small>No se requiere para pagos en efectivo.</small></div>
+</div>

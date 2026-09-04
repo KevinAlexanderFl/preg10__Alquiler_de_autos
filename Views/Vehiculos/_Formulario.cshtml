@@ -1,0 +1,12 @@
+@model Vehiculo
+<div asp-validation-summary="ModelOnly" class="validacion-resumen"></div>
+<div class="formulario-cuadricula">
+    <div class="campo"><label asp-for="Placa"></label><input asp-for="Placa" placeholder="Ej. PBA-1234" /><span asp-validation-for="Placa"></span></div>
+    <div class="campo"><label asp-for="Marca"></label><input asp-for="Marca" placeholder="Ej. Chevrolet" /><span asp-validation-for="Marca"></span></div>
+    <div class="campo"><label asp-for="Modelo"></label><input asp-for="Modelo" placeholder="Ej. Tracker" /><span asp-validation-for="Modelo"></span></div>
+    <div class="campo"><label asp-for="Color"></label><input asp-for="Color" placeholder="Ej. Blanco" /><span asp-validation-for="Color"></span></div>
+    <div class="campo"><label asp-for="Anio"></label><input asp-for="Anio" type="number" min="1990" max="2100" /><span asp-validation-for="Anio"></span></div>
+    <div class="campo"><label asp-for="PrecioDiario"></label><div class="entrada-prefijo"><span>$</span><input asp-for="PrecioDiario" type="number" min="0.01" step="0.01" /></div><span asp-validation-for="PrecioDiario"></span></div>
+    <div class="campo"><label asp-for="Estado"></label><select asp-for="Estado" asp-items="Html.GetEnumSelectList<EstadoVehiculo>()"></select><span asp-validation-for="Estado"></span></div>
+    <label class="interruptor"><input asp-for="Activo" /><span></span><div><strong>Vehículo activo</strong><small>Disponible para la operación.</small></div></label>
+</div>

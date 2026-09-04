@@ -1,0 +1,9 @@
+@model Vehiculo
+@{ ViewData["Title"] = "Editar vehículo"; }
+<section class="encabezado-pagina"><div><a class="volver" asp-action="Index">← Volver a vehículos</a><h1>Editar vehículo</h1><p>Actualice sus características y disponibilidad.</p></div></section>
+<form asp-action="Editar" asp-route-id="@Model.Id" class="tarjeta formulario-tarjeta" method="post">
+    <input type="hidden" asp-for="Id" /><div class="seccion-titulo"><span>✎</span><div><h2>@Model.Marca @Model.Modelo</h2><p>@Model.Placa</p></div></div>
+    <partial name="_Formulario" model="Model" />
+    <div class="formulario-acciones"><a class="boton secundario" asp-action="Index">Cancelar</a><button class="boton primario" type="submit">Guardar cambios</button></div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

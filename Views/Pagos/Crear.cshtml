@@ -1,0 +1,5 @@
+@model Pago
+@{ ViewData["Title"] = "Registrar pago"; }
+<section class="encabezado-pagina"><div><a class="volver" asp-action="Index">← Volver a pagos</a><h1>Registrar pago</h1><p>Ingrese el abono recibido para un contrato.</p></div></section>
+<form asp-action="Crear" class="tarjeta formulario-tarjeta" method="post"><div class="seccion-titulo"><span>$</span><div><h2>Información del pago</h2><p>El sistema impedirá valores superiores al saldo.</p></div></div><partial name="_Formulario" model="Model" /><div class="formulario-acciones"><a class="boton secundario" asp-action="Index">Cancelar</a><button class="boton primario" type="submit">Guardar pago</button></div></form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /><script src="~/js/pagos.js" asp-append-version="true"></script> }

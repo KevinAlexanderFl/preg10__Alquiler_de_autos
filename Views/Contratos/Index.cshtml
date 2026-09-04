@@ -1,0 +1,25 @@
+@model IEnumerable<Contrato>
+@{ ViewData["Title"] = "Contratos"; }
+<section class="encabezado-pagina"><div><span class="sobrelinea">OPERACIÓN</span><h1>Contratos</h1><p>Reservas, alquileres activos y devoluciones.</p></div><a class="boton primario" asp-action="Crear">＋ Nuevo contrato</a></section>
+<section class="tarjeta">
+    <form method="get" class="barra-filtros">
+        <label class="buscador"><span>⌕</span><input name="buscar" value="@ViewBag.Buscar" placeholder="Cliente, cédula o placa..." /></label>
+        <select name="estado" asp-items="Html.GetEnumSelectList<EstadoContrato>()"><option value="">Todos los estados</option></select>
+        <button class="boton secundario" type="submit">Filtrar</button><a class="boton texto" asp-action="Index">Limpiar</a>
+    </form>
+    <div class="tabla-contenedor"><table><thead><tr><th>Contrato</th><th>Cliente</th><th>Vehículo</th><th>Periodo</th><th>Total / Saldo</th><th>Estado</th><th class="acciones-columna">Acciones</th></tr></thead><tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td><a asp-action="Detalles" asp-route-id="@item.Id"><strong>#@item.Id.ToString("0000")</strong></a></td>
+            <td><strong>@item.Cliente?.NombreCompleto</strong><small>@item.Cliente?.Cedula</small></td>
+            <td><strong>@item.Vehiculo?.Marca @item.Vehiculo?.Modelo</strong><small><span class="placa pequeña">@item.Vehiculo?.Placa</span></small></td>
+            <td><strong>@item.FechaInicio.ToString("dd MMM yyyy")</strong><small>hasta @item.FechaFin.ToString("dd MMM yyyy")</small></td>
+            <td><strong>$@item.Total.ToString("N2")</strong><small>Saldo: $@item.SaldoPendiente.ToString("N2")</small></td>
+            <td><span class="etiqueta @item.Estado.ToString().ToLowerInvariant()">@item.Estado</span></td>
+            <td class="acciones"><a title="Ver" asp-action="Detalles" asp-route-id="@item.Id">⌕</a><a title="Editar" asp-action="Editar" asp-route-id="@item.Id">✎</a><a class="peligro" title="Eliminar" asp-action="Eliminar" asp-route-id="@item.Id">♲</a></td>
+        </tr>
+    }
+    </tbody></table></div>
+    @if (!Model.Any()) { <div class="estado-vacio compacto"><span>▤</span><p>No se encontraron contratos.</p></div> }
+</section>

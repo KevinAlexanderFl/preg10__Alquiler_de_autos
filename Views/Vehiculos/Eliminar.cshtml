@@ -1,0 +1,3 @@
+@model Vehiculo
+@{ ViewData["Title"] = "Eliminar vehículo"; }
+<section class="confirmacion tarjeta"><span class="confirmacion-icono">!</span><span class="sobrelinea">CONFIRMACIÓN</span><h1>¿Eliminar este vehículo?</h1><p>Se eliminará <strong>@Model.Marca @Model.Modelo</strong>, placa @Model.Placa.</p><div class="aviso">Solo se puede eliminar si no tiene contratos relacionados.</div><form asp-action="Eliminar" asp-route-id="@Model.Id" method="post"><a class="boton secundario" asp-action="Index">Cancelar</a><button class="boton peligro-boton" type="submit">Sí, eliminar</button></form></section>

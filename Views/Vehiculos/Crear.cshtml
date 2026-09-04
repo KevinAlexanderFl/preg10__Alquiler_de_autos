@@ -1,0 +1,9 @@
+@model Vehiculo
+@{ ViewData["Title"] = "Nuevo vehículo"; }
+<section class="encabezado-pagina"><div><a class="volver" asp-action="Index">← Volver a vehículos</a><h1>Registrar vehículo</h1><p>Agregue un automóvil a la flota.</p></div></section>
+<form asp-action="Crear" class="tarjeta formulario-tarjeta" method="post">
+    <div class="seccion-titulo"><span>01</span><div><h2>Datos del vehículo</h2><p>Identificación, características y tarifa.</p></div></div>
+    <partial name="_Formulario" model="Model" />
+    <div class="formulario-acciones"><a class="boton secundario" asp-action="Index">Cancelar</a><button class="boton primario" type="submit">Guardar vehículo</button></div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

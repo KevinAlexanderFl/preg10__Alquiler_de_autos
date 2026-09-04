@@ -1,0 +1,13 @@
+@model IEnumerable<Pago>
+@{ ViewData["Title"] = "Pagos"; }
+<section class="encabezado-pagina"><div><span class="sobrelinea">FINANZAS</span><h1>Pagos</h1><p>Historial de abonos asociados a contratos.</p></div><a class="boton primario" asp-action="Crear" asp-route-contratoId="@ViewBag.ContratoId">＋ Registrar pago</a></section>
+<section class="tarjeta">
+    @if (ViewBag.ContratoId is not null) { <div class="filtro-activo"><span>Mostrando pagos del contrato #@(((int)ViewBag.ContratoId).ToString("0000"))</span><a asp-action="Index">Ver todos ×</a></div> }
+    <div class="tabla-contenedor"><table><thead><tr><th>Pago</th><th>Contrato / Cliente</th><th>Fecha</th><th>Método</th><th>Referencia</th><th>Monto</th><th>Estado</th><th class="acciones-columna">Acciones</th></tr></thead><tbody>
+    @foreach (var item in Model)
+    {
+        <tr><td><strong>#P-@item.Id.ToString("0000")</strong></td><td><a asp-controller="Contratos" asp-action="Detalles" asp-route-id="@item.ContratoId"><strong>Contrato #@item.ContratoId.ToString("0000")</strong></a><small>@item.Contrato?.Cliente?.NombreCompleto</small></td><td>@item.FechaPago.ToString("dd/MM/yyyy")</td><td>@item.Metodo</td><td>@(item.NumeroReferencia ?? "—")</td><td><strong>$@item.Monto.ToString("N2")</strong></td><td><span class="etiqueta @item.Estado.ToString().ToLowerInvariant()">@item.Estado</span></td><td class="acciones"><a title="Ver" asp-action="Detalles" asp-route-id="@item.Id">⌕</a><a title="Editar" asp-action="Editar" asp-route-id="@item.Id">✎</a><a class="peligro" title="Eliminar" asp-action="Eliminar" asp-route-id="@item.Id">♲</a></td></tr>
+    }
+    </tbody></table></div>
+    @if (!Model.Any()) { <div class="estado-vacio compacto"><span>$</span><p>No existen pagos para mostrar.</p></div> }
+</section>

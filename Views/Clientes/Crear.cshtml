@@ -1,0 +1,9 @@
+@model Cliente
+@{ ViewData["Title"] = "Nuevo cliente"; }
+<section class="encabezado-pagina"><div><a class="volver" asp-action="Index">← Volver a clientes</a><h1>Registrar cliente</h1><p>Complete los datos personales y de contacto.</p></div></section>
+<form asp-action="Crear" class="tarjeta formulario-tarjeta" method="post">
+    <div class="seccion-titulo"><span>01</span><div><h2>Información del cliente</h2><p>Los campos marcados son obligatorios.</p></div></div>
+    <partial name="_Formulario" model="Model" />
+    <div class="formulario-acciones"><a class="boton secundario" asp-action="Index">Cancelar</a><button class="boton primario" type="submit">Guardar cliente</button></div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }
